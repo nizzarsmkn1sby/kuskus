@@ -97,25 +97,31 @@
               :class="sidebarOpen ? 'ml-72' : 'ml-24'">
             
             <!-- Top Dashboard Header -->
-            <header class="h-24 flex items-center justify-between px-10 sticky top-0 z-30 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
-                <div>
-                    @if (isset($header))
-                        {{ $header }}
-                    @endif
+            <header class="h-20 flex items-center justify-between px-6 sticky top-0 z-30 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
+                <div class="flex items-center gap-8">
+                    <button @click="sidebarOpen = !sidebarOpen" 
+                            class="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-all text-white/40 hover:text-emerald-500 group">
+                        <i data-lucide="menu" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+                    </button>
+                    <div>
+                        @if (isset($header))
+                            {{ $header }}
+                        @endif
+                    </div>
                 </div>
                 
-                <div class="flex items-center gap-6">
-                    <button class="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-all relative">
-                        <i data-lucide="bell" class="w-5 h-5 text-white/40"></i>
-                        <span class="absolute top-3 right-3 w-2 h-2 bg-emerald-500 rounded-full emerald-glow"></span>
+                <div class="flex items-center gap-4">
+                    <button class="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-all relative">
+                        <i data-lucide="bell" class="w-4 h-4 text-white/40"></i>
+                        <span class="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-emerald-500 rounded-full emerald-glow"></span>
                     </button>
                     <div class="h-10 w-px bg-white/5"></div>
-                    <div class="flex items-center gap-4 group cursor-pointer">
+                    <div class="flex items-center gap-3 group cursor-pointer">
                         <div class="text-right">
-                            <p class="text-xs font-bold text-white group-hover:text-emerald-500 transition-colors">{{ Auth::user()->name }}</p>
-                            <p class="text-[10px] text-white/40 uppercase tracking-widest">{{ Auth::user()->role ?? 'Admin' }}</p>
+                            <p class="text-[11px] font-bold text-white group-hover:text-emerald-500 transition-colors">{{ Auth::user()->name }}</p>
+                            <p class="text-[9px] text-white/40 uppercase tracking-widest">{{ Auth::user()->role ?? 'Admin' }}</p>
                         </div>
-                        <div class="w-12 h-12 emerald-gradient rounded-2xl flex items-center justify-center text-slate-950 font-black shadow-lg">
+                        <div class="w-10 h-10 emerald-gradient rounded-xl flex items-center justify-center text-slate-950 font-black shadow-lg">
                             {{ substr(Auth::user()->name, 0, 1) }}
                         </div>
                     </div>
@@ -123,7 +129,7 @@
             </header>
 
             <!-- Page Content -->
-            <div class="p-10">
+            <div class="p-6 lg:p-8">
                 {{ $slot }}
             </div>
 

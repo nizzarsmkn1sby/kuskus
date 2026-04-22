@@ -3,16 +3,16 @@
         <x-slot name="header">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                 <div>
-                    <h2 class="font-display font-black text-6xl tracking-tighter uppercase leading-none">Asset <span class="emerald-text">Intel</span></h2>
-                    <p class="text-[10px] font-black text-emerald-500/40 uppercase tracking-[0.5em] mt-4">Inventory Intelligence System • Operational</p>
+                    <h2 class="font-display font-black text-4xl tracking-tighter uppercase leading-none">Asset <span class="emerald-text">Intel</span></h2>
+                    <p class="text-[9px] font-black text-emerald-500/40 uppercase tracking-[0.4em] mt-2">Inventory Intelligence System • Operational</p>
                 </div>
                 <div class="flex gap-4">
-                    <button @click="showManageCategories = true" class="px-10 py-5 bg-slate-900 border border-emerald-500/10 text-white/40 text-[10px] font-black rounded-3xl hover:text-emerald-500 hover:border-emerald-500/30 transition-all uppercase tracking-[0.2em] flex items-center gap-4 group">
-                        <i data-lucide="layers" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                    <button @click="showManageCategories = true" class="px-6 py-3 bg-slate-900 border border-emerald-500/10 text-white/40 text-[9px] font-black rounded-2xl hover:text-emerald-500 hover:border-emerald-500/30 transition-all uppercase tracking-[0.2em] flex items-center gap-3 group">
+                        <i data-lucide="layers" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
                         Sectors
                     </button>
-                    <button @click="showAddProduct = true" class="px-10 py-5 emerald-gradient text-slate-950 text-[10px] font-black rounded-3xl hover:scale-105 transition-all uppercase tracking-[0.3em] flex items-center gap-4 shadow-[0_20px_40px_rgba(16,185,129,0.2)]">
-                        <i data-lucide="plus" class="w-6 h-6 stroke-[3px]"></i>
+                    <button @click="showAddProduct = true" class="px-6 py-3 emerald-gradient text-slate-950 text-[9px] font-black rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] flex items-center gap-3 shadow-lg">
+                        <i data-lucide="plus" class="w-5 h-5 stroke-[3px]"></i>
                         New Entity
                     </button>
                 </div>
@@ -22,16 +22,16 @@
         <div class="mt-16 space-y-16">
             <!-- Search & Filtering -->
             <div class="flex flex-col lg:flex-row gap-10 items-stretch lg:items-center justify-between">
-                <div class="relative flex-1 max-w-3xl group">
-                    <div class="absolute inset-0 bg-emerald-500/5 rounded-[2.5rem] blur-xl group-focus-within:bg-emerald-500/10 transition-all"></div>
-                    <i data-lucide="search" class="absolute left-8 top-1/2 -translate-y-1/2 w-6 h-6 text-white/20 group-focus-within:text-emerald-500 transition-colors"></i>
-                    <input type="text" x-model="search" placeholder="Scan infrastructure for entity signature..." class="relative w-full bg-slate-900/50 border border-emerald-500/10 rounded-[2.5rem] py-6 pl-18 pr-10 text-sm focus:border-emerald-500/50 focus:bg-slate-950 focus:ring-8 focus:ring-emerald-500/5 transition-all text-white placeholder:text-white/10 tracking-wide font-medium">
+                <div class="relative flex-1 max-w-2xl group">
+                    <div class="absolute inset-0 bg-emerald-500/5 rounded-2xl blur-lg group-focus-within:bg-emerald-500/10 transition-all"></div>
+                    <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-white/20 group-focus-within:text-emerald-500 transition-colors"></i>
+                    <input type="text" x-model="search" placeholder="Scan entity signature..." class="relative w-full bg-slate-900/50 border border-emerald-500/10 rounded-2xl py-4 pl-14 pr-8 text-xs focus:border-emerald-500/50 focus:bg-slate-950 focus:ring-4 focus:ring-emerald-500/5 transition-all text-white placeholder:text-white/10 tracking-wide font-medium">
                 </div>
                 
-                <div class="flex gap-3 overflow-x-auto pb-4 lg:pb-0 no-scrollbar">
-                    <button @click="selectedCategory = 'all'" :class="selectedCategory === 'all' ? 'emerald-gradient text-slate-950' : 'bg-slate-900 text-white/40 border-white/5'" class="px-10 py-5 text-[10px] font-black rounded-2xl border uppercase tracking-[0.3em] whitespace-nowrap transition-all">All Sectors</button>
+                <div class="flex gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                    <button @click="selectedCategory = 'all'" :class="selectedCategory === 'all' ? 'emerald-gradient text-slate-950' : 'bg-slate-900 text-white/40 border-white/5'" class="px-6 py-3 text-[9px] font-black rounded-xl border uppercase tracking-[0.2em] whitespace-nowrap transition-all">All Sectors</button>
                     <template x-for="cat in categories" :key="cat.id">
-                        <button @click="selectedCategory = cat.id" :class="selectedCategory === cat.id ? 'emerald-gradient text-slate-950' : 'bg-slate-900 text-white/40 border-white/5'" class="px-10 py-5 text-[10px] font-black rounded-2xl border uppercase tracking-[0.3em] whitespace-nowrap hover:text-white transition-all" x-text="cat.name"></button>
+                        <button @click="selectedCategory = cat.id" :class="selectedCategory === cat.id ? 'emerald-gradient text-slate-950' : 'bg-slate-900 text-white/40 border-white/5'" class="px-6 py-3 text-[9px] font-black rounded-xl border uppercase tracking-[0.2em] whitespace-nowrap hover:text-white transition-all" x-text="cat.name"></button>
                     </template>
                 </div>
             </div>
@@ -41,68 +41,68 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-slate-900 border-b border-white/5 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
-                                <th class="px-12 py-10">Entity Identity</th>
-                                <th class="px-12 py-10">Sector</th>
-                                <th class="px-12 py-10">Liquidity Value</th>
-                                <th class="px-12 py-10">Unit Strength</th>
-                                <th class="px-12 py-10 text-right">Protocol</th>
+                            <tr class="bg-slate-900 border-b border-white/5 text-[9px] font-black uppercase tracking-[0.4em] text-white/20">
+                                <th class="px-8 py-6">Entity Identity</th>
+                                <th class="px-8 py-6">Sector</th>
+                                <th class="px-8 py-6">Liquidity Value</th>
+                                <th class="px-8 py-6">Unit Strength</th>
+                                <th class="px-8 py-6 text-right">Protocol</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/[0.03]">
                             <template x-for="product in filteredProducts" :key="product.id">
                                 <tr class="group hover:bg-emerald-500/[0.02] transition-all duration-700">
-                                    <td class="px-12 py-10">
-                                        <div class="flex items-center gap-8">
-                                            <div class="w-24 h-24 rounded-[2.5rem] bg-slate-950 border border-emerald-500/5 flex items-center justify-center overflow-hidden group-hover:border-emerald-500/30 group-hover:scale-105 transition-all duration-700 shadow-2xl">
+                                    <td class="px-8 py-6">
+                                        <div class="flex items-center gap-5">
+                                            <div class="w-16 h-16 rounded-2xl bg-slate-950 border border-emerald-500/5 flex items-center justify-center overflow-hidden group-hover:border-emerald-500/30 group-hover:scale-105 transition-all duration-700 shadow-xl">
                                                 <template x-if="product.image">
                                                     <img :src="'/storage/' + product.image" class="w-full h-full object-cover">
                                                 </template>
                                                 <template x-if="!product.image">
-                                                    <i data-lucide="shield" class="w-10 h-10 text-white/10 group-hover:text-emerald-500/40 transition-colors"></i>
+                                                    <i data-lucide="shield" class="w-8 h-8 text-white/10 group-hover:text-emerald-500/40 transition-colors"></i>
                                                 </template>
                                             </div>
                                             <div>
-                                                <p class="font-display font-black text-xl text-white tracking-tight uppercase mb-2 group-hover:text-emerald-400 transition-colors" x-text="product.name"></p>
-                                                <p class="text-[10px] text-white/20 font-black uppercase tracking-[0.5em]">Signature: <span class="text-emerald-500/50" x-text="'0x' + product.id.toString().padStart(4, '0')"></span></p>
+                                                <p class="font-display font-black text-lg text-white tracking-tight uppercase mb-1 group-hover:text-emerald-400 transition-colors" x-text="product.name"></p>
+                                                <p class="text-[9px] text-white/20 font-black uppercase tracking-[0.4em]">ID: <span class="text-emerald-500/50" x-text="'0x' + product.id.toString().padStart(4, '0')"></span></p>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-12 py-10">
                                         <span class="px-6 py-2.5 bg-emerald-500/5 border border-emerald-500/10 rounded-full text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500/60" x-text="product.category.name"></span>
                                     </td>
-                                    <td class="px-12 py-10">
+                                    <td class="px-8 py-6">
                                         <div class="flex flex-col">
-                                            <span class="font-display font-black text-2xl text-white tracking-tight" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(product.price)"></span>
-                                            <span class="text-[10px] text-white/20 font-black uppercase tracking-[0.4em] mt-1">Market Valuation</span>
+                                            <span class="font-display font-black text-xl text-white tracking-tight" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(product.price)"></span>
+                                            <span class="text-[9px] text-white/20 font-black uppercase tracking-[0.3em] mt-0.5">Value</span>
                                         </div>
                                     </td>
-                                    <td class="px-12 py-10">
-                                        <div class="flex items-center gap-6">
-                                            <div class="h-2 w-24 bg-slate-950 rounded-full overflow-hidden p-[2px] border border-white/5">
+                                    <td class="px-8 py-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="h-1.5 w-16 bg-slate-950 rounded-full overflow-hidden p-[1px] border border-white/5">
                                                 <div class="h-full rounded-full transition-all duration-1000" 
                                                      :class="product.stock < 10 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'emerald-gradient shadow-[0_0_10px_rgba(16,185,129,0.3)]'"
                                                      :style="'width: ' + Math.min(100, (product.stock/50)*100) + '%'"></div>
                                             </div>
                                             <div class="flex flex-col">
-                                                <span class="font-display font-black text-2xl" :class="product.stock < 10 ? 'text-red-500' : 'text-white'" x-text="product.stock"></span>
-                                                <span class="text-[10px] text-white/20 uppercase font-black tracking-[0.4em]">Units</span>
+                                                <span class="font-display font-black text-xl" :class="product.stock < 10 ? 'text-red-500' : 'text-white'" x-text="product.stock"></span>
+                                                <span class="text-[9px] text-white/20 uppercase font-black tracking-[0.3em]">Units</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-12 py-10 text-right">
-                                        <div class="flex justify-end gap-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-x-10 group-hover:translate-x-0">
-                                            <button @click="selectedProduct = product.id; showRestock = true" class="px-8 py-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 text-emerald-500 hover:text-slate-950 transition-all flex items-center gap-3">
-                                                <i data-lucide="zap" class="w-4 h-4"></i>
+                                    <td class="px-8 py-6 text-right">
+                                        <div class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-x-5 group-hover:translate-x-0">
+                                            <button @click="selectedProduct = product.id; restockQty = 0; showRestock = true" class="px-5 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest hover:bg-emerald-500 text-emerald-500 hover:text-slate-950 transition-all flex items-center gap-2">
+                                                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
                                                 Replenish
                                             </button>
-                                            <button class="w-14 h-14 rounded-2xl bg-slate-900 border border-emerald-500/10 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
-                                                <i data-lucide="edit-3" class="w-6 h-6"></i>
+                                            <button class="w-10 h-10 rounded-xl bg-slate-900 border border-emerald-500/10 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
+                                                <i data-lucide="edit-3" class="w-4 h-4"></i>
                                             </button>
                                             <form :action="'/inventory/' + product.id" method="POST">
                                                 @csrf @method('DELETE')
-                                                <button type="submit" onclick="return confirm('Archive this entity?')" class="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
-                                                    <i data-lucide="trash-2" class="w-6 h-6"></i>
+                                                <button type="submit" onclick="return confirm('Archive this entity?')" class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
+                                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -206,7 +206,18 @@
                             <input type="hidden" name="product_id" :value="selectedProduct">
                             <div class="space-y-4">
                                 <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-6">Quantity to Inject</label>
-                                <input type="number" name="qty" required class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2.5rem] py-8 px-10 text-5xl font-display font-black text-emerald-500 focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 text-center shadow-inner" placeholder="0">
+                                <div class="relative flex items-center">
+                                    <button type="button" @click="restockQty = Math.max(0, parseInt(restockQty || 0) - 1)" 
+                                            class="absolute left-4 w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-red-500/20 hover:text-red-500 hover:border-red-500/50 transition-all z-10 group">
+                                        <i data-lucide="minus" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                                    </button>
+                                    <input type="number" name="qty" x-model="restockQty" required 
+                                           class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2.5rem] py-8 px-24 text-5xl font-display font-black text-emerald-500 focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 text-center shadow-inner [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                    <button type="button" @click="restockQty = parseInt(restockQty || 0) + 1" 
+                                            class="absolute right-4 w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-emerald-500/20 hover:text-emerald-500 hover:border-emerald-500/50 transition-all z-10 group">
+                                        <i data-lucide="plus" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="space-y-4">
                                 <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-6">Supply Origin</label>
@@ -231,6 +242,7 @@
                 showManageCategories: false,
                 showRestock: false,
                 selectedProduct: null,
+                restockQty: 0,
 
                 get filteredProducts() {
                     return this.products.filter(p => {
