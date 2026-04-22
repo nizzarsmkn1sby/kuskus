@@ -7,11 +7,11 @@
                     <p class="text-[9px] font-black text-emerald-500/40 uppercase tracking-[0.4em] mt-2">Inventory Intelligence System • Operational</p>
                 </div>
                 <div class="flex gap-4">
-                    <button @click="showManageCategories = true" class="px-6 py-3 bg-slate-900 border border-emerald-500/10 text-white/40 text-[9px] font-black rounded-2xl hover:text-emerald-500 hover:border-emerald-500/30 transition-all uppercase tracking-[0.2em] flex items-center gap-3 group">
+                    <button @click="showManageCategories = true; refreshIcons()" class="px-6 py-3 bg-slate-900 border border-emerald-500/10 text-white/40 text-[9px] font-black rounded-2xl hover:text-emerald-500 hover:border-emerald-500/30 transition-all uppercase tracking-[0.2em] flex items-center gap-3 group">
                         <i data-lucide="layers" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
                         Sectors
                     </button>
-                    <button @click="showAddProduct = true" class="px-6 py-3 emerald-gradient text-slate-950 text-[9px] font-black rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] flex items-center gap-3 shadow-lg">
+                    <button @click="showAddProduct = true; refreshIcons()" class="px-6 py-3 emerald-gradient text-slate-950 text-[9px] font-black rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] flex items-center gap-3 shadow-lg">
                         <i data-lucide="plus" class="w-5 h-5 stroke-[3px]"></i>
                         New Entity
                     </button>
@@ -96,7 +96,7 @@
                                                 <i data-lucide="zap" class="w-3.5 h-3.5"></i>
                                                 Replenish
                                             </button>
-                                            <button class="w-10 h-10 rounded-xl bg-slate-900 border border-emerald-500/10 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
+                                            <button @click="openEditModal(product)" class="w-10 h-10 rounded-xl bg-slate-900 border border-emerald-500/10 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all">
                                                 <i data-lucide="edit-3" class="w-4 h-4"></i>
                                             </button>
                                             <form :action="'/inventory/' + product.id" method="POST">
@@ -160,6 +160,47 @@
                             <div class="pt-10 flex gap-8">
                                 <button type="button" @click="showAddProduct = false" class="flex-1 py-7 border border-white/5 text-white/20 font-black rounded-[2rem] uppercase text-[10px] tracking-[0.4em] hover:text-white hover:bg-white/5 transition-all">Abort</button>
                                 <button type="submit" class="flex-1 py-7 emerald-gradient text-slate-950 font-black rounded-[2rem] uppercase text-[10px] tracking-[0.4em] hover:scale-105 transition-all shadow-xl">Execute Link</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+ 
+                <!-- Edit Product Modal -->
+                <div x-show="showEditProduct" class="fixed inset-0 z-[200] flex items-center justify-center p-8 bg-slate-950/95 backdrop-blur-3xl" x-transition.opacity x-cloak>
+                    <div @click.away="showEditProduct = false" class="glass-card p-16 rounded-[4rem] max-w-2xl w-full space-y-12 border-emerald-500/20 shadow-2xl">
+                        <div class="text-center">
+                            <h3 class="text-5xl font-display font-black tracking-tight uppercase text-white">Modify <span class="emerald-text">Entity</span></h3>
+                            <p class="text-[10px] font-black text-emerald-500/40 uppercase tracking-[0.4em] mt-4">Infrastructure Calibration Protocol</p>
+                        </div>
+                        <form :action="'/inventory/' + editingProduct.id" method="POST" enctype="multipart/form-data" class="space-y-8">
+                            @csrf @method('PUT')
+                            <div class="grid grid-cols-1 gap-10">
+                                <div class="space-y-4">
+                                    <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-4">Sector Classification</label>
+                                    <select name="category_id" x-model="editingProduct.category_id" class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2rem] py-6 px-10 text-sm text-white focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 appearance-none cursor-pointer font-bold">
+                                        <template x-for="cat in categories" :key="cat.id">
+                                            <option :value="cat.id" x-text="cat.name" :selected="cat.id == editingProduct.category_id" class="bg-slate-950 text-white"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="space-y-4">
+                                    <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-4">Designation Name</label>
+                                    <input type="text" name="name" x-model="editingProduct.name" required class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2rem] py-6 px-10 text-sm text-white focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 font-bold">
+                                </div>
+                                <div class="grid grid-cols-2 gap-10">
+                                    <div class="space-y-4">
+                                        <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-4">Base Valuation</label>
+                                        <input type="number" name="price" x-model="editingProduct.price" required class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2rem] py-6 px-10 text-sm text-white focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 font-bold">
+                                    </div>
+                                    <div class="space-y-4">
+                                        <label class="text-[10px] font-black text-white/30 uppercase tracking-[0.4em] ml-4">Current Capacity</label>
+                                        <input type="number" name="stock" x-model="editingProduct.stock" required class="w-full bg-slate-900 border border-emerald-500/10 rounded-[2rem] py-6 px-10 text-sm text-white focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 font-bold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-10 flex gap-8">
+                                <button type="button" @click="showEditProduct = false" class="flex-1 py-7 border border-white/5 text-white/20 font-black rounded-[2rem] uppercase text-[10px] tracking-[0.4em] hover:text-white hover:bg-white/5 transition-all">Abort</button>
+                                <button type="submit" class="flex-1 py-7 emerald-gradient text-slate-950 font-black rounded-[2rem] uppercase text-[10px] tracking-[0.4em] hover:scale-105 transition-all shadow-xl">Apply Calibration</button>
                             </div>
                         </form>
                     </div>
@@ -239,10 +280,22 @@
                 search: '',
                 selectedCategory: 'all',
                 showAddProduct: false,
+                showEditProduct: false,
                 showManageCategories: false,
                 showRestock: false,
                 selectedProduct: null,
                 restockQty: 0,
+                editingProduct: {},
+ 
+                openEditModal(product) {
+                    this.editingProduct = { ...product };
+                    this.showEditProduct = true;
+                    this.refreshIcons();
+                },
+
+                refreshIcons() {
+                    setTimeout(() => lucide.createIcons(), 10);
+                },
 
                 get filteredProducts() {
                     return this.products.filter(p => {
